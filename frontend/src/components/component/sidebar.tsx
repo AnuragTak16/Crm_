@@ -33,7 +33,7 @@ export function Sidebar({ onLogoutClick }: SidebarProps) {
             flex items-center justify-center gap-2 transition-colors
           '
         >
-          Connect CRM
+          Helix CRM
         </button>
       </div>
 

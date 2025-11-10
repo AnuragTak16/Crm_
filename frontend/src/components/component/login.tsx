@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
   interface StoredData {
     accessToken: string;
     refreshToken: string;
@@ -72,63 +73,86 @@ export default function LoginPage() {
   }, []);
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4'>
-      <Card className='w-full max-w-md shadow-xl rounded-2xl'>
-        <CardHeader className='bg-red-500 rounded-t-2xl'>
-          <CardTitle className='text-center text-3xl font-bold text-white py-6'>
-            Login
-          </CardTitle>
-        </CardHeader>
-        <CardContent className='p-8'>
-          <form onSubmit={handleSubmit} className='space-y-6'>
-            <div>
-              <Label htmlFor='email'>Email</Label>
-              <Input
-                id='email'
-                name='email'
-                type='email'
-                placeholder='you@example.com'
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className='mt-1 focus:ring-red-500 focus:border-red-500'
-              />
-            </div>
+    <div className='min-h-full bg- grid grid-cols-1 md:grid-cols-2'>
+      {/* Left Section */}
+      <div className='bg-gray-500 text-white flex flex-col justify-center items-center p-10 relative'>
+        <h1 className='text-4xl font-bold'>
+          Login Page <span className='block'></span>
+        </h1>
+        <p className='mt-6 text-lg text-center max-w-md'>
+          Skip repetitive and manual sales-marketing tasks. Get highly
+          productive through automation and save tons of time!
+        </p>
+        <p className='absolute bottom-4 text-sm text-gray-300'></p>
+      </div>
 
-            <div>
-              <Label htmlFor='password'>Password</Label>
-              <Input
-                id='password'
-                name='password'
-                type='password'
-                placeholder='********'
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className='mt-1 focus:ring-red-500 focus:border-red-500'
-              />
-            </div>
+      {/* Right Section */}
+      <div className='flex flex-col justify-center items-center bg-white px-6'>
+        <Card className='w-full max-w-sm border-none shadow-none'>
+          <CardContent>
+            <h2 className='text-2xl font-bold mb-2'>Welcome Back!</h2>
+            <p className='text-gray-500 text-sm mb-6'>
+              Don’t have an account?{' '}
+              <span
+                onClick={() => navigate('/signup')}
+                className='text-purple-600 cursor-pointer hover:underline'
+              >
+                Create a new account now
+              </span>
+            </p>
 
-            {error && <p className='text-red-500 text-sm'>{error}</p>}
+            <form onSubmit={handleSubmit} className='space-y-4'>
+              <div>
+                <Label htmlFor='email'>Email</Label>
+                <Input
+                  id='email'
+                  name='email'
+                  type='email'
+                  placeholder='you@example.com'
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <Button
-              type='submit'
-              className='w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition'
-              disabled={loading}
-            >
-              {loading ? 'Logging in...' : 'Login'}
-            </Button>
+              <div>
+                <Label htmlFor='password'>Password</Label>
+                <Input
+                  id='password'
+                  name='password'
+                  type='password'
+                  placeholder='********'
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <Button
-              type='button'
-              className='w-full border border-red-500 text-red-500 hover:bg-red-50 font-semibold py-3 rounded-lg transition'
-              onClick={() => navigate('/signup')}
-            >
-              Sign Up
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+              {error && <p className='text-red-500 text-sm'>{error}</p>}
+
+              <Button
+                type='submit'
+                className='w-full bg-black hover:bg-gray-900 text-white font-semibold py-3 rounded-lg transition'
+                disabled={loading}
+              >
+                {loading ? 'Logging in...' : 'Login Now'}
+              </Button>
+
+              <Button
+                type='button'
+                className='w-full flex items-center justify-center gap-2 border text-gray-600 py-3 rounded-lg transition'
+              >
+                <img
+                  src='https://www.svgrepo.com/show/355037/google.svg'
+                  alt='google'
+                  className='w-5 h-5'
+                />
+                Login with Google
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
